@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="custom_sale_order_inherit" model="ir.ui.view">
+            <field name="name">custom.sale.order.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" readonly="0"/>
+                </field>
+                <field name="validity_date" position="before">
+                    <field name="manual_create_date"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="custom_sale_order_tree_inherit" model="ir.ui.view">
+            <field name="name">custom.sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_order" position="before">
+                    <field name="manual_create_date"/>
+                </field>
+            </field>
+        </record>
+
+         <record id="custom_sale_order_view_search_inherit" model="ir.ui.view">
+            <field name="name">custom.sale.order.search.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+<!--                <field name="analytic_account_id" position="after">-->
+<!--                    <field name="manual_create_date"/>-->
+<!--                </field>-->
+                <xpath expr="//search" position="inside">
+                    <filter string="Create Date" name="create_date" date="manual_create_date"/>
+                </xpath>
+                <xpath expr="//search/group" position="inside">
+                     <filter string="Create Date" name="create_month" domain="[]" context="{'group_by': 'manual_create_date'}"/>
+
+                </xpath>
+
+            </field>
+         </record>
+
+<!--        This part for quotation search view-->
+        <record id="custom_sale_quotation_view_search_inherit" model="ir.ui.view">
+            <field name="name">custom.sale.quotation.search.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="arch" type="xml">
+                <filter name="filter_create_date" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+
+            </field>
+         </record>
+    </data>
+</odoo>

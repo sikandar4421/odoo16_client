@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        This part for purchase order-->
+        <record id="custom_purchase_order_inherit" model="ir.ui.view">
+            <field name="name">custom.purchase.order.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" readonly="0"/>
+                </field>
+                <field name="date_order" position="before">
+                    <field name="manual_create_date" readonly="0"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="custom_purchase_order_tree_inherit" model="ir.ui.view">
+            <field name="name">custom.purchase.order.tree.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_approve" position="before">
+                    <field name="manual_create_date"/>
+                </field>
+            </field>
+        </record>
+
+         <record id="custom_purchase_order_view_search_inherit" model="ir.ui.view">
+            <field name="name">custom.purchase.order.search.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+            <field name="arch" type="xml">
+<!--                <field name="analytic_account_id" position="after">-->
+<!--                    <field name="manual_create_date"/>-->
+<!--                </field>-->
+                <xpath expr="//search" position="inside">
+                    <filter string="Create Date" name="manual_create_date" date="manual_create_date"/>
+                </xpath>
+                <xpath expr="//search/group" position="inside">
+                     <filter string="Create Date" name="create_month" domain="[]" context="{'group_by': 'manual_create_date'}"/>
+
+                </xpath>
+
+            </field>
+         </record>
+
+<!--        This part for requsition-->
+        <record id="custom_purchase_requisition_inherit" model="ir.ui.view">
+            <field name="name">custom.purchase.requisition.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_order" position="before">
+                    <field name="manual_create_date" readonly="0"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="custom_purchase_requisition_view_search_inherit" model="ir.ui.view">
+            <field name="name">custom.purchase.requisition.search.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+<!--                <field name="analytic_account_id" position="after">-->
+<!--                    <field name="manual_create_date"/>-->
+<!--                </field>-->
+                <xpath expr="//search" position="inside">
+                    <filter string="Create Date" name="manual_create_date" date="manual_create_date"/>
+                </xpath>
+                <xpath expr="//search/group" position="inside">
+                     <filter string="Create Date" name="create_month" domain="[]" context="{'group_by': 'manual_create_date'}"/>
+
+                </xpath>
+
+            </field>
+         </record>
+
+    </data>
+</odoo>
