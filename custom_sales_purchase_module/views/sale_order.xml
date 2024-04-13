@@ -12,6 +12,11 @@
                 <field name="validity_date" position="before">
                     <field name="manual_create_date"/>
                 </field>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                    <field name="cost_price"/>
+                    <field name="extra_percentage"/>
+                </xpath>
             </field>
         </record>
 
@@ -46,6 +51,20 @@
          </record>
 
 <!--        This part for quotation search view-->
+          <record id="custom_sale_quotation_tree_inherit" model="ir.ui.view">
+            <field name="name">custom.sale.quotation.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <field name="create_date" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="create_date" position="before">
+                    <field name="manual_create_date"/>
+                </field>
+            </field>
+        </record>
+
         <record id="custom_sale_quotation_view_search_inherit" model="ir.ui.view">
             <field name="name">custom.sale.quotation.search.inherit</field>
             <field name="model">sale.order</field>
