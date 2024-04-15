@@ -27,10 +27,18 @@ class SaleOrder(models.Model):
         res=super(SaleOrder, self).write(vals)
         return res
 
+    def action_confirm(self):
+        for rec in self:
+            res=super(SaleOrder, rec).action_confirm()
+            for line in rec.order_line:
+                line.product_id.with_company(line.company_id.id).sudo().write(
+                    {'standard_price': line.cost_price})
+            return res
+
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    cost_price=fields.Monetary(string="Cost Price",compute="set_cost_price")
+    cost_price=fields.Float(string="Cost Price")
     extra_percentage=fields.Float(string="Extra %")
 
     price_unit = fields.Float(
@@ -39,12 +47,14 @@ class SaleOrderLine(models.Model):
         digits='Product Price',
         store=True, readonly=False, required=True, precompute=True)
 
-    @api.depends('product_id')
+    @api.onchange('product_id')
     def set_cost_price(self):
         for rec in self:
             rec.cost_price=rec.product_id.standard_price
 
-    @api.depends('product_id', 'product_uom', 'product_uom_qty','extra_percentage')
+    @api.depends('product_id', 'product_uom', 'product_uom_qty','extra_percentage','cost_price')
     def _compute_price_unit_customize(self):
         for rec in self:
             rec.price_unit=rec.cost_price+(rec.cost_price*(rec.extra_percentage/100))
+
+

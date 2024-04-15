@@ -13,16 +13,16 @@ class PurchaseOrder(models.Model):
     @api.model
     def create(self, vals_list):
         if 'name' in vals_list.keys():
-            get_name_existency = self.env['sale.order'].sudo().search([('name', '=', vals_list['name'])])
+            get_name_existency = self.env['purchase.order'].sudo().search([('name', '=', vals_list['name'])])
             if get_name_existency:
-                raise ValidationError('This Sale Order Number Already Exists in System, You can not use it')
+                raise ValidationError('This Purchase Order Number Already Exists in System, You can not use it')
         res = super(PurchaseOrder, self).create(vals_list)
         return res
 
     def write(self, vals):
         if 'name' in vals.keys():
-            get_name_existency = self.env['sale.order'].sudo().search([('name', '=', vals['name'])])
+            get_name_existency = self.env['purchase.order'].sudo().search([('name', '=', vals['name'])])
             if get_name_existency:
-                raise ValidationError('This Sale Order Already Exists in System, You can not use it')
+                raise ValidationError('This Purchase Order Already Exists in System, You can not use it')
         res = super(PurchaseOrder, self).write(vals)
         return res
