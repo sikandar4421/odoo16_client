@@ -46,7 +46,7 @@ class SaleOrder(models.Model):
 
                     else:
                         line.product_id.with_company(line.company_id.id).sudo().write(
-                            {'standard_price': line.cost_price})    
+                            {'standard_price': line.cost_price})
             return res
 
 class SaleOrderLine(models.Model):

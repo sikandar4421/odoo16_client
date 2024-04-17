@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_custom_sale_purchase_module_custom_sale_purchase_module,custom_sale_purchase_module.custom_sale_purchase_module,model_custom_sale_purchase_module_custom_sale_purchase_module,base.group_user,1,1,1,1
+access_product_uom_price,manage_product_uom_price,model_product_uom_price,,1,1,1,1
+access_product_uom_price_line,manage_product_uom_price_line,model_product_uom_price_line,,1,1,1,1

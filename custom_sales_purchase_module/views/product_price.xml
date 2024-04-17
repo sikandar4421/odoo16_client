@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="view_product_price_form" model="ir.ui.view">
+            <field name="name">view.product.price.form</field>
+            <field name="model">product.uom.price</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="product_id" options="{'no_open': True, 'no_create': True,'no_create_edit':True}"/>
+                        </group>
+                        <notebook>
+                            <page name="price_list" string="Unit Wise Price">
+                                <field name="line_ids">
+                                    <tree>
+                                        <field name="uom_id"/>
+                                        <field name="ratio"/>
+                                        <field name="cost_price"/>
+                                        <field name="sale_price"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+
+            </field>
+</record>
+
+       <record id="action_product_price_form" model="ir.actions.act_window">
+            <field name="name">Unit Wise Product Price</field>
+            <field name="res_model">product.uom.price</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_product_price_form"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+
+              </p><p>
+
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_product_price" name="Product Price Details" action="action_product_price_form" parent="stock.menu_stock_inventory_control" sequence="50"/>
+
+    </odoo>

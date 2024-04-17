@@ -25,4 +25,18 @@ class ProductTemplate(models.Model):
                 if get_hisghest_sale:
                     filter_line=get_hisghest_sale.order_line.filtered(lambda x:x.product_id.id==rec.ids[0])
                     for line in filter_line:
-                        rec.lst_price=line.price_unit
+                        # rec.lst_price=line.price_unit
+
+                        get_uom_categ = line.product_uom.category_id
+
+                        get_uom = get_uom_categ.uom_ids.filtered(lambda x: x.id == line.product_uom.id)
+
+                        for uom in get_uom:
+                            if uom.uom_type == 'bigger':
+                                rec.lst_price = line.price_unit / uom.ratio
+
+                            elif uom.uom_type == 'smaller':
+                                rec.lst_price = line.price_unit * uom.ratio
+
+                            else:
+                                rec.lst_price = line.price_unit
