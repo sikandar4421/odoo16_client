@@ -6,9 +6,9 @@ from odoo import models, fields, api
 class SaleOrderInherit(models.Model):
     _inherit = 'sale.order'
 
-    #project_id = fields.Many2one('project.project', string='Project')
+    project_id = fields.Many2one('project.project', string='Project')
 
-    @api.onchange('project_list')
+    @api.onchange('project_id')
     def get_customer_name(self):
-        if self.project_list:
-            self.partner_id = self.project_list.partner_id
+        if self.project_id:
+            self.partner_id = self.project_id.partner_id

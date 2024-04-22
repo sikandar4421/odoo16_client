@@ -38,8 +38,8 @@ class RegisterWizardPdfReport(models.AbstractModel):
         project_name = data['form']['project_id'][1] or False
         sale_orders = self.env['sale.order'].search([
             ('project_id', '=', project_id),
-            ('date_order', '>=', start_date),
-            ('date_order', '<=', end_date),
+            ('manual_create_date', '>=', start_date),
+            ('manual_create_date', '<=', end_date),
         ])
 
         qty = 0
