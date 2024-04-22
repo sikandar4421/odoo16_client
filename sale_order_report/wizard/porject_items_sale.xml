@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="sale_order_report.wizard_report_sale_pdf">
+        <t t-call="web.basic_layout">
+<!--                <t t-foreach="docs" t-as="o">-->
+                    <div class="header" style="margin-bottom: 10px; padding-bottom: 5px;">
+                        <div class="container">
+                            <div class="row" style="margin-top:25px;">
+                                <div class="text-center" style="font-size:24px;">
+                                    <b></b>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:5px;">
+                                <div class="text-center" style="font-size:12px;">
+                                    <b>Sales Item Wise</b>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:5px;">
+                                <div class="text-center" style="font-size:12px;">
+                                    <b><span t-esc="project_name"/> </b>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+<!--                    <div class="page">-->
+                        <table style=" width: 100%;">
+                            <thead>
+                                <tr style="background-color:#00cc00;font-size:12px;text-align:center;">
+                                    <th>Inv Date</th>
+                                    <th>Inv No</th>
+                                    <th>Party</th>
+                                    <th>Item Name</th>
+                                    <th style="text-align:right;padding-right:60px;">Qty</th>
+                                    <th style="text-align:right;padding-right:60px;">Rate</th>
+                                    <th style="text-align:right;padding-right:60px;">Net Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody class="consumed_tbody">
+                                 <t t-set="m" t-value="0"/>
+                                <t t-foreach="sale_orders" t-as="order">
+                                    <t t-foreach="order.order_line" t-as="line">
+                                <tr style="font-size:12px;">
+                                    <td style="text-align:center;">
+                                        <span t-esc="order.manual_create_date.strftime('%d-%B -%Y')"/>
+                                    </td>
+                                    <td style="text-align:center;"> <span t-esc="order.name"/> </td>
+                                    <td style="text-align:center;"> <span t-esc="order.project_id.name"/> </td>
+                                    <td> <span t-esc="line.product_id.name"/> </td>
+                                    <td style="text-align:right;padding-right:60px;"> <span t-esc="line.product_uom_qty"/> </td>
+                                    <td style="text-align:right;padding-right:60px;"> <span t-esc="line.price_unit"/> </td>
+
+                                    <td style="text-align:right;padding-right:60px;"><span t-esc="line.product_uom_qty * line.price_unit"/></td>
+
+
+                                </tr>
+                                    </t>
+                                    <t t-set="m" t-value="m+1"/>
+                                                                </t>
+
+                                <tr style="background-color:#00cc00;font-size:12px;">
+                                    <td style="padding-left:10px;" colspan="4">
+                                       Total
+                                    </td>
+
+                                    <td style="text-align:right;padding-right:60px;">
+                                      <span t-esc="qty"/>
+                                    </td>
+                                    <td style="text-align:right;padding-right:60px;">
+                                      <span t-esc="total_price"/>
+                                    </td>
+                                    <td style="text-align:right;padding-right:60px;"> <span t-esc="sub_total"/></td>
+
+
+                                </tr>
+
+
+                                <!--                                </t>-->
+                                <!--                                </t>-->
+                            </tbody>
+
+                        </table>
+
+
+
+
+
+
+<!--                    </div>-->
+
+
+                </t>
+<!--            </t>-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-call="web.basic_layout">-->
+<!--            <t t-foreach="sale_orders" t-as="order">-->
+<!--&lt;!&ndash;                <t t-foreach="docs[date_str]" t-as="order_info">&ndash;&gt;-->
+<!--                    <div style="page-break-after: always;">-->
+<!--&lt;!&ndash;                        <h2>Sale Order ID: <span t-esc="order.date_order"/></h2>&ndash;&gt;-->
+<!--                        <table style="width: 100%;">-->
+<!--                            <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>Date</th>-->
+<!--                                    <th>Product</th>-->
+<!--                                    <th>Quantity</th>-->
+<!--                                    <th>Price Unit</th>-->
+<!--                                </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                                <tr t-foreach="order.order_line" t-as="line">-->
+<!--                                    <td><span t-esc="order.date_order.strftime('%d-%B -%Y')"  /></td>-->
+<!--                                    <td><span t-esc="line.product_id.name"/></td>-->
+<!--                                    <td><span t-esc="line.product_uom_qty"/></td>-->
+<!--                                    <td><span t-esc="line.price_unit"/></td>-->
+<!--                                </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </t>-->
+    </template>
+</odoo>

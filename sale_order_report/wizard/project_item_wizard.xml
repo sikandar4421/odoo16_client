@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_my_sale_report_wizard_form" model="ir.ui.view">
+        <field name="name">my.sale.report.wizard.form</field>
+        <field name="model">sale.order.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="project_id"/>
+                    </group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+
+
+                    <!-- Add other fields here -->
+                </group>
+                <footer>
+                    <button string="print Item Wise" type="object" name="action_get_values" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_order_report_wizard" model="ir.actions.act_window">
+    <field name="name">Generate Sale Order Report</field>
+    <field name="res_model">sale.order.report.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+    <record id="sale_order_report.action_print_report_sale" model="ir.actions.report">
+   <field name="name">Sale Report</field>
+   <field name="model">sale.order.report.wizard</field>
+   <field name="report_type">qweb-html</field>
+   <field name="report_name">sale_order_report.wizard_report_sale_pdf</field>
+   <field name="report_file">sale_order_report.wizard_report_sale_pdf</field>
+<!--   <field name="paperformat_id" ref="dha_cms.paperformat_hr"/>-->
+   <field name="print_report_name">'Sale Report - %s' % (object.name)</field>
+   <field name="binding_model_id" ref="model_sale_order_report_wizard"/>
+</record>
+
+<menuitem id="menu_sale_order_report_wizard" name="Generate Sale Order Report" parent="sale.sale_order_menu" action="action_sale_order_report_wizard"/>
+
+
+</odoo>
