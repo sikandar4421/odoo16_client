@@ -7,7 +7,7 @@
                         <div class="container">
                             <div class="row" style="margin-top:25px;">
                                 <div class="text-center" style="font-size:24px;">
-                                    <b></b>
+                                    <b>Logic Power Technology</b>
                                 </div>
                             </div>
                             <div class="row" style="margin-top:5px;">
@@ -20,6 +20,11 @@
                                     <b><span t-esc="project_name"/> </b>
                                 </div>
                             </div>
+                            <div class="row" style="margin-top:5px;">
+                                <div class="text-left" style="font-size:12px;">
+                                    <b>Customer Name:<span t-esc="customer_name"/> </b>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -28,30 +33,32 @@
                         <table style=" width: 100%;">
                             <thead>
                                 <tr style="background-color:#00cc00;font-size:12px;text-align:center;">
-                                    <th>Inv Date</th>
-                                    <th>Inv No</th>
-                                    <th>Party</th>
-                                    <th>Item Name</th>
-                                    <th style="text-align:right;padding-right:60px;">Qty</th>
-                                    <th style="text-align:right;padding-right:60px;">Rate</th>
-                                    <th style="text-align:right;padding-right:60px;">Net Amount</th>
+                                    <th style="text-align:center;">Inv Date</th>
+                                    <th style="text-align:left;padding-left:10px;">Inv No</th>
+<!--                                    <th>Party</th>-->
+                                    <th style="text-align:left;padding-left:10px;">Item Name</th>
+                                    <th style="text-align:right;padding-right:10px;">Qty</th>
+                                    <th style="text-align:left;padding-left:10px;">Unit</th>
+                                    <th style="text-align:right;padding-right:10px;">Rate</th>
+                                    <th style="text-align:right;padding-right:10px;">Net Amount</th>
                                 </tr>
                             </thead>
                             <tbody class="consumed_tbody">
                                  <t t-set="m" t-value="0"/>
                                 <t t-foreach="sale_orders" t-as="order">
                                     <t t-foreach="order.order_line" t-as="line">
-                                <tr style="font-size:12px;">
+                                <tr style="font-size:10px;">
                                     <td style="text-align:center;">
                                         <span t-esc="order.manual_create_date.strftime('%d-%B -%Y')"/>
                                     </td>
-                                    <td style="text-align:center;"> <span t-esc="order.name"/> </td>
-                                    <td style="text-align:center;"> <span t-esc="order.project_id.name"/> </td>
-                                    <td> <span t-esc="line.product_id.name"/> </td>
-                                    <td style="text-align:right;padding-right:60px;"> <span t-esc="line.product_uom_qty"/> </td>
-                                    <td style="text-align:right;padding-right:60px;"> <span t-esc="line.price_unit"/> </td>
+                                    <td style="text-align:left;padding-left:10px;"> <span t-esc="order.name"/> </td>
+<!--                                    <td style="text-align:center;"> <span t-esc="order.project_id.name"/> </td>-->
+                                    <td style="text-align:left;padding:left:10px;"> <span t-esc="line.name"/> </td>
+                                    <td style="text-align:right;padding-right:10px;"> <span t-esc="line.product_uom_qty"/> </td>
+                                    <td style="text-align:left;padding-left:10px;"> <span t-esc="line.product_uom.name"/> </td>
+                                    <td style="text-align:right;padding-right:10px;"> <span t-esc="line.price_unit" t-options='{"widget": "float", "precision": 4}'/> </td>
 
-                                    <td style="text-align:right;padding-right:60px;"><span t-esc="line.product_uom_qty * line.price_unit"/></td>
+                                    <td style="text-align:right;padding-right:10px;"><span t-esc="line.product_uom_qty * line.price_unit" t-options='{"widget": "float", "precision": 4}'/> </td>
 
 
                                 </tr>
@@ -64,13 +71,13 @@
                                        Total
                                     </td>
 
-                                    <td style="text-align:right;padding-right:60px;">
-                                      <span t-esc="qty"/>
+                                    <td >
+
                                     </td>
-                                    <td style="text-align:right;padding-right:60px;">
-                                      <span t-esc="total_price"/>
+                                    <td >
+<!--                                      <span t-esc="total_price" t-options='{"widget": "float", "precision": 2}'/>-->
                                     </td>
-                                    <td style="text-align:right;padding-right:60px;"> <span t-esc="sub_total"/></td>
+                                    <td style="text-align:right;padding-right:10px;"> <span t-esc="sub_total" t-options='{"widget": "float", "precision": 4}'/>&#160;<span t-esc="currency"/></td>
 
 
                                 </tr>

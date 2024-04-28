@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Form View Subtask-->
+ <record model="ir.ui.view" id="project_subtask_form_view">
+        <field name="name">Subtask.form.view</field>
+        <field name="model">task.subtask</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group >
+                            <field name="name" />
+                        </group>
+                        <group >
+                            <field name="stage"/>
+                        </group>
+                    </group>
+
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+
+    <!--Tree view For SubTask-->
+    <record id="project_subtask_tree" model="ir.ui.view">
+        <field name="name">project.subtask.tree</field>
+        <field name="model">task.subtask</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="stage" />
+            </tree>
+        </field>
+    </record>
+    <!--add action foe menu-->
+    <record id="project_subtask_action" model="ir.actions.act_window">
+        <field name="name">SubTask</field>
+        <field name="res_model">task.subtask</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
+
+    <!-- add menu in setting configuration to add subtask for each stage-->
+    <menuitem
+        id="project_subtask_stage_menu"
+        name="Add SubTask"
+        action="project_subtask_action"
+        parent="project.menu_project_config"
+    />
+</odoo>

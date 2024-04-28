@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_task_subtask,task.subtask,model_task_subtask,base.group_user,1,1,1,1
+access_project_quotation,project.quotation,model_project_quotation,base.group_user,1,1,1,1
+access_project_quotation_line,project.quotation.line,model_project_quotation_line,base.group_user,1,1,1,1
+access_project_quotation_setup,project.quotation.setup,model_project_quotation_setup,base.group_user,1,1,1,1

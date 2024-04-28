@@ -41,21 +41,32 @@ class RegisterWizardPdfReport(models.AbstractModel):
             ('manual_create_date', '>=', start_date),
             ('manual_create_date', '<=', end_date),
         ])
-
+        project_res = self.env['project.project'].search([('id', '=', project_id)])
+        customer_name = ''
+        for rec in project_res:
+            customer_name = rec.partner_id.name
+        currency = ''
         qty = 0
         total_price = 0
         sub_total = 0
+        currency = ''
+        for curr in sale_orders:
+            currency = curr.company_id.currency_id.name
+
         for rec in sale_orders.order_line:
             qty = qty + rec.product_uom_qty
             total_price = total_price + rec.price_unit
             sub_total = sub_total + (rec.product_uom_qty * rec.price_unit)
+
         docargs = {
             'doc_ids': [],
             'project_name': project_name or False,
             'sale_orders': sale_orders or False,
             'qty': qty or False,
             'total_price': total_price or False,
-            'sub_total': sub_total or False
+            'sub_total': sub_total or False,
+            'customer_name': customer_name or False,
+            'currency': currency or False
         }
         return docargs
 
