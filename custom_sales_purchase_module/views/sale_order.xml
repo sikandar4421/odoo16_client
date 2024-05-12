@@ -45,8 +45,8 @@
                 </xpath>
                 <xpath expr="//search/group" position="inside">
                      <filter string="Create Date" name="create_month" domain="[]" context="{'group_by': 'manual_create_date'}"/>
-
                 </xpath>
+
 
             </field>
          </record>
